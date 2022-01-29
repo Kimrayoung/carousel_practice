@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    overflow: hidden;
+    padding-top: 10px;
+    width: 500px;
+}
+
+.box {
+    display: flex;
+}
+
+.box > img{
+    width: 500px;
+}
+
+.left {
+    font-size: 80px;
+    width: 100px;
+    height: 100px;
+}
+
+.right {
+    font-size: 80px;
+    width: 100px;
+    height: 100px;
+}

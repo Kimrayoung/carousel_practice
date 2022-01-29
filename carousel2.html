@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carousel</title>
+
+    <style>
+        .container {
+            width: 500px;
+            overflow: hidden;
+        }
+        .carousel {
+            display: flex;
+            transition: 1s;
+        }
+        img {
+            display: inline-block;
+            width: 500px;
+        }
+        button {
+            width: 100px;
+            height: 100px;
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="carousel">
+        <img src="./images/carousel_00001.jpg" alt="">
+        <img src="./images/carousel_00002.jpg" alt="">
+        <img src="./images/carousel_00003.jpg" alt="">
+        <img src="./images/carousel_00004.jpg" alt="">
+        <img src="./images/carousel_00005.jpg" alt="">
+    </div>
+</div>
+
+<div>
+    <button class="left">⬅</button>
+    <button class="right">➡</button>
+</div>
+
+<script>
+    function getFirstNode (carousel) {  //첫번째 사진
+      return carousel.firstElementChild;
+    }
+
+    function getLastNode (carousel) {  //마지막 사진
+      return carousel.lastElementChild;
+    }
+
+    function appendCarousel (carousel) {  //처음과 마지막에 붙여넣기
+      const firstNode = getFirstNode(carousel);
+      const lastNode = getLastNode(carousel);
+      carousel.append(firstNode.cloneNode(true));
+      carousel.insertBefore(lastNode.cloneNode(true), firstNode);
+    }
+
+
+
+    const left = document.querySelector('.left');
+    const right = document.querySelector('.right');
+    const carousel = document.querySelector('.carousel');
+    appendCarousel(carousel);
+    console.log(carousel.firstElementChild);
+   
+    console.log(carousel);
+    console.log('text',carousel.childNodes[0]);
+   
+
+
+    const carouselSize = 500;
+    carousel.style.transform = `translate(-${carouselSize}px, 0px)`;
+
+    const len = carousel.querySelectorAll('img').length;
+    console.log(len);
+    const min = 0;
+    const max = carouselSize * (len - 1);
+
+    let x = carouselSize;
+    left.addEventListener('click', function () {
+      carousel.style.transition = '1s';
+      if (x === max) {
+        return;
+      }
+      x += carouselSize;
+      console.log('left', x);
+      carousel.style.transform = `translate(-${x}px, 0px)`;
+      if (x === max) {
+        setTimeout(function () {
+          carousel.style.transition = 'none';
+            x = carouselSize;
+            carousel.style.transform = `translate(-${x}px, 0px)`;
+        }, 8000);
+      }
+    });
+
+    right.addEventListener('click', function () {
+      carousel.style.transition = '1s';
+      if (x === min) {
+        return;
+      }
+      x -= carouselSize;
+      console.log('right', x);
+      carousel.style.transform = `translate(-${x}px, 0px)`;
+      if (x === min) {
+        setTimeout(function () {
+          carousel.style.transition = 'none';
+          x = max - carouselSize;
+          carousel.style.transform = `translate(-${x}px, 0px)`;
+        }, 1000);
+      }
+    });
+</script>
+</body>
+</html>
